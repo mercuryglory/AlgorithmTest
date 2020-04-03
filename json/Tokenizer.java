@@ -1,6 +1,6 @@
 package json;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +13,7 @@ public class Tokenizer {
     private int index = 0;
 
     // 词法分析结果列表
-    private List<Token> tokens = new LinkedList<Token>();
+    private List<Token> tokens = new ArrayList<>();
     // 获取词法分析结果时的索引位置
     private int tokenIndex = 0;
 
@@ -51,7 +51,7 @@ public class Tokenizer {
      * @throws Exception
      */
     private void init() throws Exception {
-        Token token = null;
+        Token token;
         while ((token = token()) != null) {
             tokens.add(token);
         }
@@ -75,13 +75,13 @@ public class Tokenizer {
             return new Token(TokenType.NULL, null);
         }
         if (c == '{') {
-            return new Token(TokenType.START_OBJ, "{");
+            return new Token(TokenType.BEGIN_OBJ, "{");
         }
         if (c == '}') {
             return new Token(TokenType.END_OBJ, "}");
         }
         if (c == '[') {
-            return new Token(TokenType.START_ARRAY, "[");
+            return new Token(TokenType.BEGIN_ARRAY, "[");
         }
         if (c == ']') {
             return new Token(TokenType.END_ARRAY, "]");
@@ -114,7 +114,7 @@ public class Tokenizer {
      */
     private String readString() {
         char c = read();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         while (c != '"') {
             sb.append(c);
             if (isEscape(c)) {
@@ -132,8 +132,8 @@ public class Tokenizer {
      */
     private String readNum() {
         char c = read();
-        StringBuffer sb = new StringBuffer();
-        while (c != '"' && c != ':' && c != ',' && c != ']' && c != '}') {
+        StringBuilder sb = new StringBuilder();
+        while (Character.isDigit(c)) {
             sb.append(c);
             c = read();
         }
@@ -147,10 +147,7 @@ public class Tokenizer {
      * @return
      */
     private boolean isNum(char c) {
-        if (Character.isDigit(c)) {
-            return true;
-        }
-        return false;
+        return Character.isDigit(c);
     }
 
     /**
@@ -159,9 +156,7 @@ public class Tokenizer {
      * @return
      */
     private boolean isEscape(char c) {
-        if (c == '\\')
-            return true;
-        return false;
+        return c == '\\';
     }
 
     /**
@@ -262,17 +257,7 @@ public class Tokenizer {
      * @return
      */
     private boolean isSpace(char c) {
-        if (c == '\t')
-            return true;
-        if (c == '\n')
-            return true;
-        if (c == '\r')
-            return true;
-        if (c == '\0')
-            return true;
-        if (c == ' ')
-            return true;
-        return false;
+        return Character.isWhitespace(c);
     }
 
     /**
@@ -280,8 +265,9 @@ public class Tokenizer {
      * @return
      */
     public Token next() {
-        if (tokenIndex + 1 < tokens.size())
+        if (tokenIndex + 1 < tokens.size()) {
             return tokens.get(++tokenIndex);
+        }
         return null;
     }
 
@@ -290,8 +276,9 @@ public class Tokenizer {
      * @return
      */
     public Token get() {
-        if (tokenIndex < tokens.size())
+        if (tokenIndex < tokens.size()) {
             return tokens.get(tokenIndex);
+        }
         return null;
     }
 }

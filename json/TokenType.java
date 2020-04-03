@@ -5,9 +5,9 @@ package json;
  */
 public enum TokenType {
 
-    START_OBJ,         // {
+    BEGIN_OBJ,         // {
     END_OBJ,
-    START_ARRAY,       // [
+    BEGIN_ARRAY,       // [
     END_ARRAY,
     NULL,
     NUMBER,

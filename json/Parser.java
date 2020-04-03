@@ -15,14 +15,14 @@ public class Parser {
      * @return
      * @throws Exception
      */
-    public static Map<String, Object> parserObject(Tokenizer tokenizer) throws Exception {
+    public static Map<String, Object> parseObject(Tokenizer tokenizer) throws Exception {
         Map<String, Object> map = new HashMap<>();
         Token token = null;
         while (true) {
             token = tokenizer.get();
             if (token.type == TokenType.END_OBJ)
                 break;
-            if (token.type == TokenType.START_OBJ) {
+            if (token.type == TokenType.BEGIN_OBJ) {
                 tokenizer.next();
                 continue;
             }
@@ -35,7 +35,7 @@ public class Parser {
             if (token.type != TokenType.COLON)
                 throw new Exception();
             tokenizer.next();
-            map.put(key, parserValue(tokenizer));
+            map.put(key, parseValue(tokenizer));
         }
         return map;
     }
@@ -46,14 +46,14 @@ public class Parser {
      * @return
      * @throws Exception
      */
-    public static List<Object> parserArray(Tokenizer tokenizer) throws Exception {
+    public static List<Object> parseArray(Tokenizer tokenizer) throws Exception {
         List<Object> list = new LinkedList<>();
         Token token = null;
         while (true) {
             token = tokenizer.get();
             if (token.type == TokenType.END_ARRAY)
                 break;
-            if (token.type == TokenType.START_ARRAY) {
+            if (token.type == TokenType.BEGIN_ARRAY) {
                 tokenizer.next();
                 continue;
             }
@@ -61,7 +61,7 @@ public class Parser {
                 tokenizer.next();
                 continue;
             }
-            list.add(parserValue(tokenizer));
+            list.add(parseValue(tokenizer));
         }
         return list;
     }
@@ -72,13 +72,13 @@ public class Parser {
      * @return
      * @throws Exception
      */
-    public static Object parserValue(Tokenizer tokenizer) throws Exception {
+    public static Object parseValue(Tokenizer tokenizer) throws Exception {
         Token token = tokenizer.get();
         try {
-            if (token.type == TokenType.START_OBJ) {
-                return parserObject(tokenizer);
-            } else if (token.type == TokenType.START_ARRAY) {
-                return parserArray(tokenizer);
+            if (token.type == TokenType.BEGIN_OBJ) {
+                return parseObject(tokenizer);
+            } else if (token.type == TokenType.BEGIN_ARRAY) {
+                return parseArray(tokenizer);
             } else if (token.type == TokenType.BOOLEAN) {
                 return Boolean.valueOf(token.value);
             } else if (token.type == TokenType.STRING) {
