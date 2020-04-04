@@ -20,8 +20,9 @@ public class Parser {
         Token token = null;
         while (true) {
             token = tokenizer.get();
-            if (token.type == TokenType.END_OBJ)
+            if (token.type == TokenType.END_OBJ) {
                 break;
+            }
             if (token.type == TokenType.BEGIN_OBJ) {
                 tokenizer.next();
                 continue;
@@ -32,8 +33,9 @@ public class Parser {
             }
             String key = token.value;
             token = tokenizer.next();
-            if (token.type != TokenType.COLON)
+            if (token.type != TokenType.COLON) {
                 throw new Exception();
+            }
             tokenizer.next();
             map.put(key, parseValue(tokenizer));
         }
