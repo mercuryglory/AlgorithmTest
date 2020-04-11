@@ -40,15 +40,11 @@ public class Solution1 {
     }
 
     private void test() {
-        for (int i = 1; i < 4; i++) {
-            stack1.add(i);
-        }
 
-        for (int i = 6; i < 9; i++) {
-            stack2.add(i);
-        }
-
-        push(5);
+        push(1);
+        push(2);
+        push(3);
+        push(4);
         System.out.println(pop());
     }
 
