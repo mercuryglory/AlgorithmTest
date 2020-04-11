@@ -19,7 +19,7 @@ package linkedlist;
  * 应当保持奇数节点和偶数节点的相对顺序。
  * 链表的第一个节点视为奇数节点，第二个节点视为偶数节点，以此类推。
  */
-public class MergeNode {
+public class MergeNode extends BaseNode {
 
     public static void main(String[] args) {
         ListNode head = new ListNode(1);
@@ -36,30 +36,18 @@ public class MergeNode {
         generateListListListNode(head);
     }
 
-    private static void printList(ListNode listNode) {
-        if (listNode == null) {
-            return;
-        }
-        while (listNode != null) {
-            System.out.print(listNode.value + " -> ");
-            listNode = listNode.next;
-        }
-        System.out.println();
-
-    }
-
-    public static ListNode generateListListListNode(ListNode head){
-        int number=1;
-        ListNode node=head;
-        ListNode n1Head=new ListNode(-1);
-        ListNode n2Head= new ListNode(-1);
-        ListNode n1=n1Head;
-        ListNode n2=n2Head;
-        while(node!=null){
-            if(number%2==1){
+    public static ListNode generateListListListNode(ListNode head) {
+        int number = 1;
+        ListNode node = head;
+        ListNode n1Head = new ListNode(-1);
+        ListNode n2Head = new ListNode(-1);
+        ListNode n1 = n1Head;
+        ListNode n2 = n2Head;
+        while (node != null) {
+            if (number % 2 == 1) {
                 n1.next = node;
-                n1=n1.next;
-            }else{
+                n1 = n1.next;
+            } else {
                 n2.next = node;
                 n2 = n2.next;
             }
@@ -69,8 +57,8 @@ public class MergeNode {
             printList(n1);
         }
 
-        n1.next=n2Head.next;
-        n2.next=null;
+        n1.next = n2Head.next;
+        n2.next = null;
 
         return n1Head.next;
     }

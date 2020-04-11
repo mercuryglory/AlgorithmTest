@@ -3,7 +3,7 @@ package linkedlist;
 /**
  * created by mercury on 2020-04-05
  */
-public class ReverseList {
+public class ReverseList extends BaseNode {
 
     public static void main(String[] args) {
         ListNode head = new ListNode(0);
@@ -17,18 +17,6 @@ public class ReverseList {
         printList(head);
 
         printList(reverseList(head));
-
-    }
-
-    private static void printList(ListNode listNode) {
-        if (listNode == null) {
-            return;
-        }
-        while (listNode != null) {
-            System.out.print(listNode.value + " -> ");
-            listNode = listNode.next;
-        }
-        System.out.println();
 
     }
 
