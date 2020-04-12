@@ -4,7 +4,7 @@ package btree;
  * created by mercury on 2020-04-11
  * 输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）
  */
-public class Solution {
+public class Solution1 {
 
     public static void main(String[] args) {
         TreeNode root1 = new TreeNode(1);

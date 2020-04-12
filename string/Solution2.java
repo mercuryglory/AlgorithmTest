@@ -8,48 +8,48 @@ package string;
  */
 public class Solution2 {
 
+
+    /**
+     * 先看*再看匹配
+     * 1.若当前字符存在下一个字符，看下一个字符是否是'*',是的话有2种情况
+     * 一 当前匹配
+     * 1.1 match(str,i + 1,pattern,j)//跳过str
+     * 1.2 match(str,i,pattern,j + 2)//跳过pattern
+     *  二：当前不匹配
+     * match(str,i,pattern,j + 2)//跳过pattern
+     *
+     * 2 下一个不是*
+     * 当前匹配  match(str,i + 1,pattern,j + 1)
+     */
     public boolean match(char[] str, char[] pattern) {
-        return matchTwo(str, 0, str.length, pattern, 0, pattern.length);
-    }
-
-    private boolean matchTwo(char[] str, int i, int length1, char[] pattern, int j, int length2) {
-        if (i == length1 && j == length1) {
-            return true;
-        }
-
-        if (i == length1 && j != length2) {
-            while (j != length2) {
-                if (pattern[j] != '*' && (j + 1 >= length2 || pattern[j + 1] != '*')) {
-                    return false;
-                }
-                j++;
-            }
-            return true;
-        }
-
-        if (i != length1 && j == length2) {
+        if (str == null || pattern == null) {
             return false;
         }
+        return match(str, 0, pattern, 0);
+    }
 
-        if (j + 1 == length2) {
-            if (str[i] == pattern[j] || pattern[j] == '.') {
-                return matchTwo(str, i + 1, length1, pattern, j + 1, length2);
+
+    public boolean match(char[] str, int i, char[] pattern, int j) {
+        System.out.println("递归调用");
+        //当pattern遍历完，str恰好遍历完才返回true
+        if (j == pattern.length) {
+            return i == str.length;
+        }
+
+        //以下情况保证数组不越界
+        //下一个是'*'
+        if (j < pattern.length - 1 && pattern[j + 1] == '*') {
+            if (i != str.length && (str[i] == pattern[j] || pattern[j] == '.')) {
+                return match(str, i + 1, pattern, j)
+                        || match(str, i, pattern, j + 2);       //*前面的字符可以出现0次
             } else {
-                return false;
+                return match(str, i, pattern, j + 2);
             }
         }
 
-        if ((str[i] == pattern[j] || pattern[j] == '.') && pattern[j + 1] != '*') {
-            return matchTwo(str, i + 1, length1, pattern, j + 1, length2);
-        }
-
-        if ((str[i] == pattern[j] || pattern[j] == '.') && pattern[j + 1] == '*') {
-            return matchTwo(str, i, length1, pattern, j + 2, length2)
-                    || matchTwo(str, i + 1, length1, pattern, j, length2);
-        }
-
-        if (pattern[j + 1] == '*') {
-            return matchTwo(str, i, length1, pattern, j + 2, length2);
+        //下一个不是'*' 当前匹配
+        if (i != str.length && (str[i] == pattern[j] || pattern[j] == '.')) {
+            return match(str, i + 1, pattern, j + 1);
         }
 
         return false;
