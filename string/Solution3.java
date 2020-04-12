@@ -5,10 +5,10 @@ package string;
  * 例如，字符串"+100","5e2","-123","3.1416"和"-1E-16"都表示数值。
  * 但是"12e","1a3.14","1.2.3","+-5"和"12e+4.3"都不是。
  */
-public class Solution {
+public class Solution3 {
 
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        Solution3 solution = new Solution3();
         System.out.println(solution.isNumeric("3.E+5".toCharArray()));
     }
 
