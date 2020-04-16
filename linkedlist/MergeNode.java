@@ -32,8 +32,8 @@ public class MergeNode extends BaseNode {
 
 //        printList(head);
 
-//        printList(generateListListListNode(head));
-        generateListListListNode(head);
+        printList(generateListListListNode(head));
+//        generateListListListNode(head);
     }
 
     public static ListNode generateListListListNode(ListNode head) {
