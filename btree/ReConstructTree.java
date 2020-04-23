@@ -24,7 +24,7 @@ public class ReConstructTree {
      * @return
      */
     public static TreeNode reConstructBinaryTree(int[] pre,int[] in) {
-        if (pre.length == 0 || pre.length != in.length) {
+        if (pre.length == 0) {
             return null;
         }
 
