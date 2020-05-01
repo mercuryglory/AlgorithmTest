@@ -17,59 +17,78 @@ public class MaxPathSum {
         TreeNode root = new TreeNode(1);
         root.left = new TreeNode(2);
         root.right = new TreeNode(3);
-//        root.left.left = new TreeNode(4);
-//        root.right.left = new TreeNode(5);
+        root.left.left = new TreeNode(4);
+        root.right.left = new TreeNode(5);
+        root.right.right = new TreeNode(6);
 
-        System.out.println(maxPathSum(root.left));
+        System.out.println(maxPathSum(root));
 
     }
-
-
-    /**
-     * 最大路径和有可能是哪些情况
-     * 1、左子树的路径加上当前节点
-     * 2、右子树的路径加上当前节点
-     * 3、左右子树的路径加上当前节点
-     * 4、只有自己的路径
-     * <p>
-     * 如果当前节点上面还有节点，那它的父节点是不能累加第三种情况的。所以要计算两个最大值
-     * 一个是当前节点下的最大路径和
-     * 一个是如果要连接父节点时的最大路径和
-     * 用前者更新全局最大量，用后者返回递归值
-     */
 
 
     public static int maxValue;
 
     public static int maxPathSum(TreeNode root) {
         maxValue = Integer.MIN_VALUE;
-        maxSum(root);
+        dfs(root);
 
         return maxValue;
     }
 
 
-    public static int maxSum(TreeNode node) {
+    /**
+     * 给定一个非空节点，最终路径经过这个节点有4种情况：
+     * 1、左子树的路径加上当前节点
+     * 2、右子树的路径加上当前节点
+     * 3、只有该节点本身（左右子树的路径和都是负数）
+     * 4、左右子树的路径加上当前节点
+     * 其中1，2，3都可以作为子树路径和向上延伸，而4则不行。因为沿着路径，每个节点只会经过一次
+     */
+    public static int dfs(TreeNode node) {
         if (node == null) {
             return 0;
         }
-        int left = Math.max(0, maxSum(node.left));
-        int right = Math.max(0, maxSum(node.right));
+
+        int left = dfs(node.left);
+        int right = dfs(node.right);
+
+        //比较这三种情况的最大值，都是经过node且可以向上组合的，返回给上层使用
+        int temp = Math.max(Math.max(left + node.val, right + node.val), node.val);
+        //不能向上组合的情况只用于更新结果，不用向上返回
+        maxValue = Math.max(maxValue, Math.max(temp, left + right + node.val));
+
+        return temp;
+
+    }
+
+
+    /**
+     * 对算法做了优化，如果返回给上层的值为负数就取0，要取就取正数，减少了做比较的运算次数
+     */
+    public static int getPath(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int left = Math.max(0, getPath(node.left));
+        int right = Math.max(0, getPath(node.right));
+
         maxValue = Math.max(maxValue, left + right + node.val);
-
         return Math.max(left, right) + node.val;
 
     }
 
 
-    //如果必须是一条连续路径，题目会简单一些，不用计算全局路径数
-    public static int maxPathAnother(TreeNode node) {
-        if (node == null) {
-            return 0;
-        }
-        int left = Math.max(0, maxPathAnother(node.left));
-        int right = Math.max(0, maxPathAnother(node.right));
-        return Math.max(left, right) + node.val;
 
-    }
+
+    //这种思路没有理解题目，算出的是必须从根节点出发的值
+//    public static int maxPathAnother(TreeNode node) {
+//        if (node == null) {
+//            return 0;
+//        }
+//        int left = Math.max(0, maxPathAnother(node.left));
+//        int right = Math.max(0, maxPathAnother(node.right));
+//        return Math.max(left, right) + node.val;
+//
+//    }
 }
