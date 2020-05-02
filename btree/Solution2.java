@@ -39,7 +39,7 @@ public class Solution2 extends BaseTreeNode {
     public static void main(String[] args) {
         TreeNode root = generateTreeNode();
 
-        System.out.println(printFromTopToBottom(null));
+        System.out.println(printFromTopToBottom(root));
 
     }
 
