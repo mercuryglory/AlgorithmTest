@@ -63,13 +63,15 @@ public class Solution9 extends BaseTreeNode {
                 System.out.println("找到了：" + node.val);
                 return node;
             }
+
             count++;
             if (count == k) {
                 System.out.println("返回root：" + root.val);
                 return root;
             }
             node = kThNode2(root.right, k);
-            System.out.println("最后掉了这里：" + node);
+
+            //有了前面的判断，只要命中最后到这里就会返回结果节点。否则就是null
             return node;
 
         }
