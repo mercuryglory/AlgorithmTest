@@ -71,6 +71,7 @@ public class Solution9 extends BaseTreeNode {
             }
 
             node = kThNode2(root.right, k);
+            //一个小子树的递归结束
             System.out.println("递归该节点结束：" + node);
 
             return node;

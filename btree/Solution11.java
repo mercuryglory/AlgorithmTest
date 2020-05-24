@@ -6,13 +6,31 @@ package btree;
  */
 public class Solution11 extends BaseTreeNode {
 
-
-    private static TreeNode pLast = null;
-
     /**
      * 使用一个成员变量记录当前链表的末尾节点
      * 递归的过程，相当于中序遍历，分解成小树，将他们分别转化成一小段一小段的双向链表
      * 再利用pLast记录总的链表末尾，然后将这些小段链表一个接一个加到末尾
+     */
+    private static TreeNode pLast = null;
+
+
+    /**
+     * 理解题意，比如原先的二叉搜索树：
+     *                     6
+     *                  /    \
+     *                 4      8
+     *                / \    / \
+     *               2   5  7   9
+     *
+     * 转换为排序的双向链表后的结构不再是原先这样，而是比root小的全在左边，比root大的全在右边，
+     * 左子树只有左子节点，右子树只有右子节点：
+     *                      6
+     *                    /   \
+     *                   5     7
+     *                  /       \
+     *                 4         8
+     *                /           \
+     *               2             9
      */
     public static TreeNode convertBstTo(TreeNode root) {
         if (root == null) {
@@ -39,7 +57,7 @@ public class Solution11 extends BaseTreeNode {
 
     public static void main(String[] args) {
         TreeNode root = createBST();
-        convertBstTo(root);
+        TreeNode result = convertBstTo(root);
 
         System.out.println(123);
     }

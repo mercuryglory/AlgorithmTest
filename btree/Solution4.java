@@ -16,7 +16,7 @@ public class Solution4 {
             return null;
         }
 
-        //如果有右子树，则找到右子树的最左叶子结点
+        //如果有右子树，就以当前为根节点，找到右子树的最左叶子结点
         if (node.right != null) {
             node = node.right;
             while (node.left != null) {
