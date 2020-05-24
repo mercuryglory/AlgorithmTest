@@ -54,7 +54,6 @@ public class Solution9 extends BaseTreeNode {
             TreeNode node = kThNode2(root.left, k);
 
             /**
-             * 这个判断条件才是最终返回的结果
              * 如果没有这个条件，root就是返回给上一级的节点的，而不是递归结束的条件。
              * 一旦返回了root,那么node就不会为空了，就一直一层层递归出去到结束了
              *
@@ -66,14 +65,15 @@ public class Solution9 extends BaseTreeNode {
 
             count++;
             if (count == k) {
+                //返回root作为递归结束条件
                 System.out.println("返回root：" + root.val);
                 return root;
             }
+
             node = kThNode2(root.right, k);
+            System.out.println("递归该节点结束：" + node);
 
-            //有了前面的判断，只要命中最后到这里就会返回结果节点。否则就是null
             return node;
-
         }
 
         return null;
@@ -84,8 +84,12 @@ public class Solution9 extends BaseTreeNode {
 
     public static void main(String[] args) {
         TreeNode root = createBST();
+//        TreeNode root = new TreeNode(8);
+//        root.left = new TreeNode(6);
+//        root.left.left = new TreeNode(5);
+//        root.left.right = new TreeNode(7);
 
-        TreeNode result = kThNode2(root, 5);
+        TreeNode result = kThNode2(root, 4);
         System.out.println();
     }
 
