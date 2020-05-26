@@ -40,7 +40,7 @@ public class Solution5 {
      * 分组标准是第3位是否为1。如此，相同的数肯定在一个组，因为相同数字所有位都相同，而不同的数，肯定不在一组。
      * 然后把这两个组按照最开始的思路，依次异或，剩余的两个结果就是这两个只出现一次的数字
      */
-    public static void findNumsAppearOnce(int[] array, int num1[], int num2[]) {
+    public static void findNumsAppearOnce(int[] array, int[] num1, int[] num2) {
         if (array == null || array.length < 2) {
             return;
         }
