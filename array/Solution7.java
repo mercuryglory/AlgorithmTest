@@ -13,7 +13,7 @@ public class Solution7 {
 
     /**
      * 将数组先排好序的方法很容易想到，先快排，有序数组中符合条件的数一定是数组中间的那个数
-     * 但是时间复杂度是O(logN)，如果用桶排序，则空间复杂度和负数无法满足要求
+     * 但是时间复杂度是O(NlogN)，如果用桶排序，则空间复杂度和负数无法满足要求
      */
     public static int sortSolution(int[] array) {
         if (array == null || array.length < 1) {
