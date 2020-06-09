@@ -50,13 +50,28 @@ public class CutRope {
     }
 
 
-//    /**
-//     *
-//     * @return
-//     */
-//    public static int cutRope(int n) {
-//
-//    }
+    /**
+     * 贪心算法的时间复杂度更低，在这里也适用，但是数学原理不一定能想到
+     *
+     * 当n>=5时，尽可能多的剪长度为3的绳子；当剩下的绳子长度为4时，把绳子剪成两段长度为2的绳子
+     * 因为2，3包含于各个问题中，如果再往下剪的话，乘积会变小
+     * 为什么选3，因为n>=5时，3(n-3)>=2(n-2)
+     */
+    public static int cutRope(int n) {
+        if (n == 2) {
+            return 1;
+        }
+        if (n == 3) {
+            return 2;
+        }
+        if (n % 3 == 0) {
+            return (int) Math.pow(3, n / 3);
+        } else if (n % 3 == 1) {
+            return 4 * (int) Math.pow(3, n / 3 - 1);
+        } else {
+            return 2 * (int) Math.pow(3, n / 3);
+        }
+    }
 
 
     public static void main(String[] args) {
