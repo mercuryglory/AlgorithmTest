@@ -66,7 +66,7 @@ public class Solution8 extends BaseTreeNode {
         TreeNode root = generateTreeNode();
         System.out.println(serialize(root));
 
-        TreeNode result = deserialize("。");
+        TreeNode result = deserialize("1,2,3,#,#,4,#,#,5,6,#,#,7,#,#,");
         System.out.println();
     }
 
