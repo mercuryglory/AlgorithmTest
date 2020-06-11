@@ -21,10 +21,10 @@ public class Solution6 {
         Stack<TreeNode> s2 = new Stack<>();     //存偶数层节点
         while (!s1.isEmpty() || !s2.isEmpty()) {
             if (!s1.isEmpty()) {
-                ArrayList<Integer> list2 = new ArrayList<>();
+                ArrayList<Integer> subList = new ArrayList<>();
                 while (!s1.isEmpty()) {
                     TreeNode node = s1.pop();
-                    list2.add(node.val);
+                    subList.add(node.val);
                     if (node.left != null) {
                         s2.add(node.left);
                     }
@@ -33,7 +33,7 @@ public class Solution6 {
                     }
 
                 }
-                list.add(list2);
+                list.add(subList);
             } else {
                 ArrayList<Integer> list2 = new ArrayList<>();
                 while (!s2.isEmpty()) {
