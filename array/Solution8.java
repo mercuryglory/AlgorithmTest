@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Solution8 {
 
     /**
-     * 因为数组时递增的，很容易可以证明遇到的第一组就是乘积最小的
+     * 因为数组是递增的，很容易可以证明遇到的第一组就是乘积最小的
      * 然后左右加逼
      */
     public static ArrayList<Integer> findNumbersWithSum(int[] array, int sum) {
