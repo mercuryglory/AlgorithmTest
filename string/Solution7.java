@@ -8,7 +8,10 @@ package string;
  */
 public class Solution7 {
 
-    public static String leftRotateString(String str, int n) {
+    /**
+     * 利用数学规律当然是可以得出结果，时间复杂度为O(1)，但是没有旋转的思想
+     */
+    public static String leftRotateString1(String str, int n) {
         if (str == null) {
             return null;
         }
@@ -19,10 +22,46 @@ public class Solution7 {
         }
         return str.substring(n % len, len).concat(str.substring(0, n % len));
 
+    }
+
+
+    /**
+     * 分段翻转，最后整体翻转
+     */
+    public static String leftRotateString(String str, int n) {
+        if (str == null) {
+            return null;
+        }
+        int len = str.length();
+        if (len == 0) {
+            return "";
+        }
+
+        int bit = n % len;
+        char[] chars = str.toCharArray();
+        reverse(chars, 0, bit - 1);
+        reverse(chars, bit, len - 1);
+        reverse(chars, 0, len - 1);
+
+        return new String(chars);
 
     }
 
+    /**
+     * 左右加逼
+     */
+    public static void reverse(char[] chars, int start, int end) {
+        while (start < end) {
+            char temp = chars[start];
+            chars[start] = chars[end];
+            chars[end] = temp;
+            end--;
+            start++;
+        }
+    }
+
+
     public static void main(String[] args) {
-        System.out.println(leftRotateString("abcXYZdef", 9));
+        System.out.println(leftRotateString("abcXYZdef", 24));
     }
 }
