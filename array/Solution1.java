@@ -46,7 +46,7 @@ public class Solution1 {
                 j++;
             } else if (array[i][j] > target) {
                 i--;
-            }else{
+            } else {
                 return true;
             }
 
