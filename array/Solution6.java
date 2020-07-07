@@ -12,7 +12,7 @@ public class Solution6 {
      * 然后新建一个等长数组，设置两个指针，奇数指针从0开始，偶数指针从奇数个数的末尾开始
      */
     public static void reOrderArray(int[] array) {
-        if (array == null || array.length == 0 || array.length == 1) {
+        if (array == null || array.length <= 1) {
             return;
         }
         int oddCount = 0, oddBegin = 0;
