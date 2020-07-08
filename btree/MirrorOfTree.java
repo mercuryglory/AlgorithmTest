@@ -4,6 +4,8 @@ import java.util.Stack;
 
 /**
  * created by mercury on 2020-05-18
+ *
+ * 操作给定的二叉树，将其变换为源二叉树的镜像。
  */
 public class MirrorOfTree extends BaseTreeNode {
 
@@ -58,7 +60,7 @@ public class MirrorOfTree extends BaseTreeNode {
 
     public static void main(String[] args) {
         TreeNode root = generateTreeNode();
-        mirror1(root);
+        mirror(root);
         System.out.println(123);
     }
 }
