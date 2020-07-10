@@ -15,70 +15,94 @@ import java.util.ArrayList;
  */
 public class Solution1 {
 
+
     /**
-     * 顺时针打印就是按圈数循环打印，将每一层的四个边角搞清楚就可以了
-     * 圈其实是一个方形，只要有两行或者两列就得到一个圈
+     * 一个不错的思路 https://www.jianshu.com/p/36c697698bd7
+     * 先计算打印的圈数，画个图就知道，循环圈数由最短边决定,并且是由两边向中间，折半
+     * 每一圈的初始元素都是矩阵第i行的第i列的元素，对应二维数组中[i][i]
+     *
      */
     public static ArrayList<Integer> printMatrix(int[][] matrix) {
         ArrayList<Integer> result = new ArrayList<>();
-        if (matrix.length == 0) {
+        if (matrix == null) {
             return result;
         }
+
         int row = matrix.length;
-        int column = matrix[0].length;
-        if (column == 0) {
+        int col = matrix[0].length;
+        if (col == 0) {
             return result;
         }
 
-        /**
-         * 计算出层数
-         * 由行和列较小值决定，只能由最短边决定，画个图就知道，比如2*4的矩阵，层数=1
-         * 除以2是因为每次循环都会因顶部从左到右，和底部从右到左用掉2行，从上下向中间收缩，所以只取一半
-         * 如果较小值是偶数，那么只要/2就可
-         * 但如果较小值是奇数，那么结果是/2+1
-         * 所以层数应该是 较小值/2+较小值%2
-         */
-        int layers = Math.min(row, column) / 2 + Math.min(row, column) % 2;
-        for (int i = 0; i < layers; i++) {
-            for (int j = i; j < column - i; j++) {  //从左至右
-                result.add(matrix[i][j]);
+        if (row == 1) {
+            for (int i = 0; i < col; i++) {
+                result.add(matrix[0][i]);
             }
-            for (int k = i + 1; k < row - i; k++) {     //从右上至右下
-                result.add(matrix[k][column - 1 - i]);
+            return result;
+        }
+        if (col == 1) {
+            for (int i = 0; i < row; i++) {
+                result.add(matrix[i][0]);
             }
-
-            /**
-             * 考虑矩阵行数小于列数，比如{{1,2,3,4,5}}，行的最大索引row-1减去当前循环层数i不应该等于
-             * 当前循环层数，否则最后一轮从左上到右上之后，接下来会再重复这一轮同样元素的从右下到左下，
-             */
-            for (int j = column - i - 2; (j >= i) && (row - 1 - i != i); j--) {        //从右下到左下
-                result.add(matrix[row - 1 - i][j]);
-            }
-
-            /**
-             * 从左下到左上，和上一行的j>=i不同，这里如果=最后会重复打印这一轮左上到右上的第一个元素，所以k>i
-             * 考虑列数小于行数，比如{{1},{2},{3},{4},{5}}，列的最大索引column-1减去当前循环层数i不应该
-             * 等于当前循环层数，否则最后一轮从右上到右下后，接下来会再重复这一轮同样元素从左下到左上
-             */
-            for (int k = row - i - 2; (k > i) && (column - 1 - i != i); k--) {
-                result.add(matrix[k][i]);
-            }
-
+            return result;
         }
 
+        //一圈是一次循环
+        for (int i = 0; i < row - i; i++) {
+            if (i < col - i) {
+                //一圈的上边，行固定，找准边界
+                for (int j = i; j < col - i; j++) {
+                    result.add(matrix[i][j]);
+                }
+                //一圈的右边，列固定
+                for (int j = i + 1; j < row - i; j++) {
+                    result.add(matrix[j][col - 1 - i]);
+                }
+
+                int k = row - 1 - i;
+                /**
+                 * 考虑矩阵行数小于列数，比如{{1,2,3,4,5}}，行的最大索引row-1减去当前循环层数i不应该等于
+                 * 当前循环层数，否则最后一轮从左上到右上之后，接下来会再重复这一轮从右下到左下的部分元素，
+                 */
+                if (k != i) {
+                    //一圈的下边，行固定
+                    for (int j = col - 1 - i - 1; j >= i; j--) {
+                        result.add(matrix[k][j]);
+                    }
+
+
+                }
+
+                //考虑矩阵列数小于行数，同上
+                int m = col - 1 - i;
+                if (m != i) {
+                    /**
+                     * 一圈的左边，列固定
+                     * 从左下到左上，和上一行的j>=i不同，这里如果=最后会重复打印这一轮左上到右上的第一个元素
+                     */
+                    for (int j = row - 1 - i - 1; j > i; j--) {
+                        result.add(matrix[j][i]);
+                    }
+                }
+
+            }
+        }
         return result;
 
+
     }
+
 
     /**
      * 还有一个不错的思路 https://www.jianshu.com/p/36c697698bd7
      */
     public static void main(String[] args) {
 //        int[][] matrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
-//        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}, {13, 14, 15}, {16, 17, 18}};
+//        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}, {10, 11, 12}, {13, 14, 15}};
 //        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 //        int[][] matrix = {{1}, {2}, {3}, {4}, {5}};
-        int[][] matrix = {{1, 2, 3, 4, 5}};
+//        int[][] matrix = {{1, 2, 3, 4, 5}};
+        int[][] matrix = {{}};
         ArrayList<Integer> list = printMatrix(matrix);
         System.out.println(list);
 
