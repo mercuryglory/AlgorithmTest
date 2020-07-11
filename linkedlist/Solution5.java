@@ -42,7 +42,7 @@ public class Solution5 extends BaseNode {
 
 
         currentNode = head;
-        //拆分链表，head又恢复成原先了。新建一个节点指向新链表的头节点，也就是合并链表的第二个
+        //拆分链表，head又恢复成原先了。新建一个拷贝节点指向合并链表的第二个节点
         RandomListNode cloneHead = head.next;
         while (currentNode != null) {
             RandomListNode cloneNode = currentNode.next;

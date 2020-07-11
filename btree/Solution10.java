@@ -13,6 +13,12 @@ public class Solution10 extends BaseTreeNode {
     private static ArrayList<Integer> path = new ArrayList<>();
 
 
+    /**
+     * 深度遍历
+     * @param root
+     * @param target
+     * @return
+     */
     public static ArrayList<ArrayList<Integer>> findPath(TreeNode root, int target) {
         if (root == null) {
             //叶子节点，路径结束，每段递归的出口
@@ -29,8 +35,8 @@ public class Solution10 extends BaseTreeNode {
         findPath(root.left, target);
         findPath(root.right, target);
 
-        //不管当前路径是否加出target，必须去掉最后一个，然后返回父节点，去查找另外一条路径，最后的path肯定为空
         System.out.println(path.size());
+        //递归每一层结束后，都必须去掉最后一个。因为不管是否符合，都要回退到父节点，去查找另外一条路径，最后的path肯定为空
         path.remove(path.size() - 1);
 
         return res;
@@ -38,8 +44,9 @@ public class Solution10 extends BaseTreeNode {
 
     public static void main(String[] args) {
         int[] arr = {1, 2, 0, 4, 5, 6, 9, 3, 8};
+//        int[] arr = {10, 5, 12, 4, 7};
         TreeNode result = createBinaryTreeByArray(arr, 0);
-        System.out.println(findPath(result, 10));
+        System.out.println(findPath(result, 15));
     }
 
 }
