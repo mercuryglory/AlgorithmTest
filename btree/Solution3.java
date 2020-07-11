@@ -50,8 +50,8 @@ public class Solution3 {
 
 
     public static void main(String[] args) {
-//        int[] array = {2, 4, 3, 6, 8, 7, 0};
-        int[] array = {1, 3, 5, 7, 6, 0};
+        int[] array = {2, 4, 3, 6, 8, 7, 0};
+//        int[] array = {1, 3, 2, 5, 7, 6, 4};
         System.out.println(verifySequenceOfBST(array));
 
     }
