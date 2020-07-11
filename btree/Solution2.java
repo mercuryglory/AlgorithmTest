@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Solution2 extends BaseTreeNode {
 
     /**
-     * 用linkedlist模拟一个队列存储treenode
+     * 用ArrayList模拟一个队列存储TreeNode
      * @param root
      * @return
      */
