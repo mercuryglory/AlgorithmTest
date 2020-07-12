@@ -46,7 +46,7 @@ public class Solution10 extends BaseTreeNode {
         int[] arr = {1, 2, 0, 4, 5, 6, 9, 3, 8};
 //        int[] arr = {10, 5, 12, 4, 7};
         TreeNode result = createBinaryTreeByArray(arr, 0);
-        System.out.println(findPath(result, 15));
+        System.out.println(findPath(result, 10));
     }
 
 }
