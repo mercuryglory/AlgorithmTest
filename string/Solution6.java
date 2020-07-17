@@ -2,6 +2,7 @@ package string;
 
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -28,7 +29,7 @@ public class Solution6 {
         }
 
         char[] chars = str.toCharArray();
-        TreeSet<String> temp = new TreeSet<>();
+        Set<String> temp = new TreeSet<>();
         fun(chars, 0, temp);
         result.addAll(temp);
         return result;
@@ -41,11 +42,11 @@ public class Solution6 {
      * https://uploadfiles.nowcoder.com/images/20170705/7578108_1499250116235_8F032F665EBB2978C26C4051D5B89E90
      *
      */
-    private static void fun(char[] chars, int begin, TreeSet<String> temp) {
+    private static void fun(char[] chars, int begin, Set<String> temp) {
         if (chars == null || begin > chars.length - 1) {
             return;
         }
-        //这里的递归，char数组时不变的，当下标到数组的最后一个位置时就添加到集合中
+        //这里的递归，char数组是不变的，当下标到数组的最后一个位置时就添加到集合中
         if (begin == chars.length - 1) {
             //归并
             temp.add(String.valueOf(chars));
