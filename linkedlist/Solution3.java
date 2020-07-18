@@ -17,7 +17,7 @@ public class Solution3 extends BaseNode {
         }
         ListNode slow = head;
         ListNode fast = head;
-        while (fast != null) {
+        while (fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
             if (slow == fast) {
@@ -57,8 +57,21 @@ public class Solution3 extends BaseNode {
         return head;
     }
 
+    private static ListNode nonCircleLoop() {
+        ListNode head = new ListNode(0);
+        ListNode point = head;
+        int i = 0;
+        while (i++ < 6) {
+            point.next = new ListNode(i);
+            point = point.next;
+        }
+
+        return head;
+    }
+
     public static void main(String[] args) {
-        ListNode loop = createLoop();
+//        ListNode loop = createLoop();
+        ListNode loop = nonCircleLoop();
         System.out.println(entryNodeOfLoop(loop).value);
     }
 }
