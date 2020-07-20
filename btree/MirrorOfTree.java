@@ -48,6 +48,7 @@ public class MirrorOfTree extends BaseTreeNode {
         root.left = root.right;
         root.right = temp;
 
+        //省的方法入栈后才判断然后出栈返回，效率高点
         if (root.left != null) {
             mirror(root.left);
         }
