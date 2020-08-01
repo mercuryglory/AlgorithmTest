@@ -11,7 +11,7 @@ public class Solution {
 
     public static void main(String[] args) {
         int[] arr = {3, 4, 5, 6, -1, 1, 2};
-//        int[] arr = {1, 0, 1, 1, 1};
+//        int[] arr = {1, 1, 1, 0, 1};
         System.out.println(minNumberInRotateArray(arr));
     }
 
@@ -34,7 +34,7 @@ public class Solution {
         int low = 0;
         int high = array.length - 1;
         while (low < high) {
-            int mid = low + (high - low) / 2;
+            int mid = (low + high) / 2;
             if (array[mid] > array[high]) {
                 low = mid + 1;
             } else if (array[mid] == array[high]) {
@@ -43,6 +43,7 @@ public class Solution {
                 high = mid;
             }
         }
+
         return array[low];
     }
 }
