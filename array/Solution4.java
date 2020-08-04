@@ -21,31 +21,34 @@ public class Solution4 {
     public static int getLower(int[] array, int k) {
         int start = 0;
         int end = array.length - 1;
-        int mid = (start + end) / 2;
         while (start <= end) {
+            int mid = (start + end) / 2;
             if (array[mid] < k) {
                 start = mid + 1;
             } else {
                 end = mid - 1;
             }
-            mid = (start + end) / 2;
             System.out.println("getLower");
         }
         return start;
 
     }
 
+    /**
+     * 这个方法是为了找出k在数组中最右边的位置
+     * 只要mid值<=k，start就右移，否则end左移，最后返回end刚好是第一个大于k的位置的左边
+     */
     public static int getHigher(int[] array, int k) {
         int start = 0;
         int end = array.length - 1;
-        int mid = (start + end) / 2;
+
         while (start <= end) {
+            int mid = (start + end) / 2;
             if (array[mid] <= k) {
                 start = mid + 1;
             } else {
                 end = mid - 1;
             }
-            mid = (start + end) / 2;
             System.out.println("getHigher");
         }
         return end;
