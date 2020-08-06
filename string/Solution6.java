@@ -30,7 +30,7 @@ public class Solution6 {
 
         char[] chars = str.toCharArray();
         Set<String> temp = new TreeSet<>();
-        fun(chars, 0, temp);
+        backtrack(chars, 0, temp);
         result.addAll(temp);
         return result;
 
@@ -42,7 +42,7 @@ public class Solution6 {
      * https://uploadfiles.nowcoder.com/images/20170705/7578108_1499250116235_8F032F665EBB2978C26C4051D5B89E90
      *
      */
-    private static void fun(char[] chars, int begin, Set<String> temp) {
+    private static void backtrack(char[] chars, int begin, Set<String> temp) {
         if (chars == null || begin > chars.length - 1) {
             return;
         }
@@ -54,7 +54,7 @@ public class Solution6 {
             //递进
             for (int i = begin; i <= chars.length - 1; i++) {
                 swap(chars, begin, i);
-                fun(chars, begin + 1, temp);
+                backtrack(chars, begin + 1, temp);
                 //这里就是回溯法，如果将[a,b,c]看作根节点，那么要保证根节点不变
                 swap(chars, begin, i);
             }
@@ -75,7 +75,7 @@ public class Solution6 {
 
     public static void main(String[] args) {
 
-        System.out.println(permutation("abc"));
+        System.out.println(permutation("aab"));
 
     }
 }
