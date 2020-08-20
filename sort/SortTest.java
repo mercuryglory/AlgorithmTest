@@ -99,7 +99,7 @@ public class SortTest {
         int temp = arr[i];
         //从i的左子节点开始
         for (int j = i * 2 + 1; j < len; j = j * 2 + 1) {
-            //如果左子节点小于右子节点，K指向右子节点
+            //如果左子节点小于右子节点，j指向右子节点
             if (j < len - 1 && arr[j] < arr[j + 1]) {
                 j++;
             }
@@ -109,7 +109,7 @@ public class SortTest {
                 arr[i] = arr[j];
                 i = j;
             } else {
-                //左右子节点都比父节点小，结束
+                //左右子节点都不大于父节点，结束
                 break;
             }
         }
