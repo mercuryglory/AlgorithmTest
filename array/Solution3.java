@@ -24,23 +24,19 @@ public class Solution3 {
      * @return
      */
     public static int[] multiply(int[] A) {
-        int length = A.length;
-        int[] B = new int[length];
-        if (length != 0) {
-            B[0] = 1;
-            //下三角
-            for (int i = 1; i < length; i++) {
-                B[i] = B[i - 1] * A[i - 1];
-            }
-
-            int temp = 1;
-            //上三角
-            for (int i = length - 2; i >= 0; i--) {
-                temp = temp * A[i + 1];
-                B[i] = B[i] * temp;
-            }
+        int len = A.length;
+        int[] res = new int[len];
+        int k = 1;
+        for (int i = 0; i < len; i++) {
+            res[i] = k;
+            k *= A[i];
+        }
+        k = 1;
+        for (int i = len - 1; i > 0; i--) {
+            k *= A[i];
+            res[i - 1] *= k;
         }
 
-        return B;
+        return res;
     }
 }
