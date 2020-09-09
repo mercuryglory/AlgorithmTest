@@ -10,49 +10,40 @@ public class Solution2 {
 
 
     /**
-     * 先看*再看匹配
-     * 1.若当前字符存在下一个字符，看下一个字符是否是'*',是的话有2种情况
-     * 一 当前匹配
-     * 1.1 match(str,i + 1,pattern,j)//跳过str
-     * 1.2 match(str,i,pattern,j + 2)//跳过pattern
-     *  二：当前不匹配
-     * match(str,i,pattern,j + 2)//跳过pattern
-     *
-     * 2 下一个不是*
-     * 当前匹配  match(str,i + 1,pattern,j + 1)
+     * 动态规划
      */
     public boolean match(char[] str, char[] pattern) {
         if (str == null || pattern == null) {
             return false;
         }
-        return match(str, 0, pattern, 0);
-    }
+        int m = str.length;
+        int n = pattern.length;
+        boolean[][] dp = new boolean[m + 1][n + 1];
+        dp[0][0] = true;
+        for (int i = 0; i < m + 1; i++) {
+            for (int j = 1; j < n + 1; j++) {
+                if (pattern[j - 1] != '*') {
+                    if (isMatch(str, pattern, i, j)) {
+                        dp[i][j] = dp[i - 1][j - 1];
+                    }
+                } else {
+                    dp[i][j] = isMatch(str, pattern, i, j - 1) ? dp[i - 1][j] || dp[i][j - 2] : dp[i][j - 2];
+                }
 
-
-    public boolean match(char[] str, int i, char[] pattern, int j) {
-        System.out.println("递归调用");
-        //当pattern遍历完，str恰好遍历完才返回true
-        if (j == pattern.length) {
-            return i == str.length;
-        }
-
-        //以下情况保证数组不越界
-        //下一个是'*'
-        if (j < pattern.length - 1 && pattern[j + 1] == '*') {
-            if (i != str.length && (str[i] == pattern[j] || pattern[j] == '.')) {
-                return match(str, i + 1, pattern, j)
-                        || match(str, i, pattern, j + 2);       //*前面的字符可以出现0次
-            } else {
-                return match(str, i, pattern, j + 2);
             }
         }
+        return dp[m][n];
 
-        //下一个不是'*' 当前匹配
-        if (i != str.length && (str[i] == pattern[j] || pattern[j] == '.')) {
-            return match(str, i + 1, pattern, j + 1);
+    }
+
+    private boolean isMatch(char[] str, char[] pattern, int i, int j) {
+        if (i == 0) {
+            return false;
         }
-
-        return false;
+        if (pattern[j - 1]=='.') {
+            return true;
+        }
+        return str[i - 1] == pattern[j - 1];
     }
 
 
